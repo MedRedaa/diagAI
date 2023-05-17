@@ -1,8 +1,8 @@
 include:
-  - project: client
-    file: client/.gitlab-ci.yml
-  - project: flask-server
-    file: flask-server/.gitlab-ci.yml
-  - project: server
-    file: server/.gitlab-ci.yml
+  - project: 'DiagAI/client'
+    file: 'DiagAI/client/.gitlab-ci.yml'
+  - project: 'DiagAI/flask-server'
+    file: 'DiagAI/flask-server/.gitlab-ci.yml'
+  - project: 'DiagAI/server'
+    file: 'DiagAI/server/.gitlab-ci.yml'
   
