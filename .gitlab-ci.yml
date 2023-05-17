@@ -1,8 +1,8 @@
 include:
-  - project: DiagAI/client
-    file: DiagAI/client/.gitlab-ci.yml
-  - project: DiagAI/flask-server
-    file: DiagAI/flask-server/.gitlab-ci.yml
-  - project: DiagAI/server
-    file: DiagAI/server/.gitlab-ci.yml
+  - project: https://gitlab.com/Reedaa/diagai
+    file: /client/.gitlab-ci.yml
+  - project: https://gitlab.com/Reedaa/diagai
+    file: /flask-server/.gitlab-ci.yml
+  - project: https://gitlab.com/Reedaa/diagai
+    file: /server/.gitlab-ci.yml
   
