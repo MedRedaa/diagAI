@@ -1,7 +1,106 @@
-include:
-  - project: diagai/client
-    file: client/.gitlab-ci.yml
-  - project: diagai/flask-server
-    file: flask-server/.gitlab-ci.yml
-  - project: diagai/server
-    file: server/.gitlab-ci.yml
+stages:
+  - build
+  - package
+  - deploy
+
+job_build_client:
+  stage: build
+  before_script:
+    - cd client
+  image: node:16.18.0-alpine
+  script:
+    - npm install next react react-dom
+  
+
+job_package_client:
+  stage: package
+  before_script:
+    - cd client
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u reda91 -p $DOCKER_HUB_PASSWORD
+    - docker build -t reda91/client .
+    - docker push reda91/client:latest
+
+
+job_deploy_client:
+  stage: deploy
+  before_script:
+    - cd client
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker pull reda91/client:latest
+    - docker run -d --name client_container -p 8080:80 reda91/client:latest
+
+
+job_build_flask_server:
+  stage: build
+  before_script:
+    - cd flask-server
+  image: python:3.8-alpine
+  script:
+    - pip install --upgrade pip
+
+job_package_flask_server:
+  stage: package
+  before_script:
+    - cd flask-server
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u reda91 -p $DOCKER_HUB_PASSWORD
+    - docker build -t reda91/pyhton .
+    - docker push reda91/python:latest
+
+
+
+job_deploy_flask_server:
+  stage: deploy
+  before_script:
+    - cd flask-server
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker pull reda91/python:latest
+    - docker run -d --name python_container -p 8080:80 reda91/python:latest
+
+job_build_server:
+  stage: build
+  before_script:
+    - cd server
+  image: node:16.18.0-alpine
+  script:
+    - npm install
+
+
+job_package_server:
+  stage: package
+  before_script:
+    - cd server
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u reda91 -p $DOCKER_HUB_PASSWORD
+    - docker build -t reda91/server .
+    - docker push reda91/server:latest
+
+
+job_deploy_server:
+  stage: deploy
+  before_script:
+    - cd server
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker pull reda91/server:latest
+    - docker run -d --name server_container -p 8080:80 reda91/server:latest
+
+
