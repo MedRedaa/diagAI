@@ -54,7 +54,7 @@ job_package_flask_server:
     - docker:dind
   script:
     - docker login -u reda91 -p $DOCKER_HUB_PASSWORD
-    - docker build -t reda91/pyhton .
+    - docker build -t reda91/flask .
     
 
 
@@ -63,14 +63,14 @@ job_deploy_flask_server:
   stage: deploy
   before_script:
     - cd flask-server
-    - docker push reda91/python:latest
+    - docker push reda91/flask:latest
   image: docker:stable
   services:
     - docker:dind
   script:
     
-    - docker pull reda91/python:latest
-    - docker run -d --name python_container -p 8080:80 reda91/python:latest
+    - docker pull reda91/flask:latest
+    - docker run -d --name flask_container -p 8080:80 reda91/flask:latest
 
 job_build_server:
   stage: build
