@@ -107,6 +107,9 @@ job_deploy_server:
 
 k8sdeployment:
   stage: k8sdeploy
+  services:
+    - docker:dind
+  image: bitnami/kubectl
   script : 
     - kubectl apply -f ./release/kubernetes-manifests.yaml
     - kubectl get pods
