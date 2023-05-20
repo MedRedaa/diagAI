@@ -2,6 +2,7 @@ stages:
   - build
   - package
   - deploy
+  - k8sdeploy
 
 job_build_client:
   stage: build
@@ -104,4 +105,11 @@ job_deploy_server:
     - docker pull reda91/server:latest
     - docker run -d --name server_container -p 8080:80 reda91/server:latest
 
-
+k8sdeployment:
+  stage: k8sdeploy
+  script : 
+    - kubectl apply -f ./release/kubernetes-manifests.yaml
+    - kubectl get pods
+  after_script:
+    - kubectl get service/frontend-external
+  
