@@ -111,10 +111,12 @@ job_deploy_server:
 k8sdeployment:
   stage: k8sdeploy
   image: portainer/kubectl-shell
+  before_script:
+  - kubectl config use-context docker-desktop
+
   script : 
     - mkdir -p $CI_PROJECT_DIR/.kube
-    - export KUBECONFIG="$CI_PROJECT_DIR/.kube/config"
-    - kubectl config use-context docker-desktop
+    - export KUBECONFIG="$HOME/.kube/config"
     - kubectl apply -f ./release/kubernetes-manifests.yaml
     - kubectl get pods
   after_script:
