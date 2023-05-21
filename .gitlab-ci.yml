@@ -109,7 +109,7 @@ k8sdeployment:
   stage: k8sdeploy
   services:
     - docker:dind
-  image: bitnami/kubectl
+  image: portainer/kubectl-shell
   script : 
     - kubectl apply -f ./release/kubernetes-manifests.yaml
     - kubectl get pods
