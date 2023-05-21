@@ -113,7 +113,6 @@ k8sdeployment:
   image: portainer/kubectl-shell
   script : 
     - mkdir -p $CI_PROJECT_DIR/.kube
-    - echo "$KUBECONFIG" | base64 -d > "$KUBECONFIG"
     - export KUBECONFIG="$CI_PROJECT_DIR/.kube/config"
     - kubectl config use-context docker-desktop
     - kubectl apply -f ./release/kubernetes-manifests.yaml
