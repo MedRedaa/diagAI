@@ -5,7 +5,7 @@ stages:
   - k8sdeploy
 
 variables:
-  KUBECONFIG: "$PWD/.kube/config"
+  KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
 
 job_build_client:
   stage: build
@@ -112,6 +112,7 @@ k8sdeployment:
   stage: k8sdeploy
   image: portainer/kubectl-shell
   script : 
+    - mkdir -p $CI_PROJECT_DIR/.kube
     - echo "$KUBECONFIG" | base64 -d > "$KUBECONFIG"
     - kubectl config use-context docker-desktop
     - kubectl apply -f ./release/kubernetes-manifests.yaml
