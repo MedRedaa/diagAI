@@ -115,8 +115,6 @@ k8sdeployment:
   - kubectl config use-context docker-desktop
 
   script : 
-    - mkdir -p $CI_PROJECT_DIR/.kube
-    - export KUBECONFIG="$HOME/.kube/config"
     - kubectl apply -f ./release/kubernetes-manifests.yaml
     - kubectl get pods
   after_script:
