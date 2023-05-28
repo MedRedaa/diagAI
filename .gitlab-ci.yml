@@ -110,13 +110,11 @@ job_deploy_server:
 
 k8sdeployment:
   stage: k8sdeploy
-  image: portainer/kubectl-shell
-  before_script:
-  - kubectl config use-context docker-desktop
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context Reedaa/diagai:kubernetes-link
+    - kubectl apply -f ./release/kubernetes-manifest.yml
 
-  script : 
-    - kubectl apply -f ./release/kubernetes-manifests.yaml
-    - kubectl get pods
-  after_script:
-    - kubectl get service/frontend-external
-  
