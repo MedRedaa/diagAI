@@ -113,8 +113,10 @@ k8sdeployment:
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
+  before_script:
+    - kubectl config view --minify --flatten > kubeconfig.yaml
   script:
     - kubectl config get-contexts
-    - kubectl config use-context Reedaa/diagai:kubernetes-link
+    - kubectl config use-context docker-desktop
     - kubectl apply -f ./release/kubernetes-manifest.yml
 
