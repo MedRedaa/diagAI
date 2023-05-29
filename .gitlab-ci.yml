@@ -4,8 +4,8 @@ stages:
   - deploy
   - k8sdeploy
 
-variables:
-  KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
+#variables:
+ # KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
 
 job_build_client:
   stage: build
@@ -116,6 +116,6 @@ k8sdeployment:
   
   script:
     - kubectl config get-contexts
-    - kubectl config use-context /Reedaa/diagai/:primary-agent
+    - kubectl config use-context Reedaa/diagai/-/tree/master/.gitlab/agents/primary-agent:primary-agent
     - kubectl apply -f ./release/kubernetes-manifest.yml
 
