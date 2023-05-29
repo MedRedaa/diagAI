@@ -116,6 +116,6 @@ k8sdeployment:
   
   script:
     - kubectl config get-contexts
-    - kubectl config use-context docker-desktop
+    - kubectl config use-context /Reedaa/diagai/:primary-agent
     - kubectl apply -f ./release/kubernetes-manifest.yml
 
