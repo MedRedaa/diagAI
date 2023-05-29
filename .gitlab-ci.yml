@@ -113,9 +113,7 @@ k8sdeployment:
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
-  before_script:
-    - mkdir -p $HOME/.kube
-    - cp $CI_PROJECT_DIR/.kube/config $HOME/.kube/config
+  
   script:
     - kubectl config get-contexts
     - kubectl config use-context docker-desktop
