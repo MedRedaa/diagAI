@@ -4,7 +4,7 @@ stages:
   - build
   - package
   - deploy
-  - spotbugs-sast
+  - scan
   - k8sdeploy
 
 include:
