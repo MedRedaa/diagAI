@@ -1,8 +1,8 @@
 stages:
+  - test
   - build
   - package
   - deploy
-  - test
   - k8sdeploy
 
 include:
@@ -10,6 +10,26 @@ include:
 #variables:
  # KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
 
+sast:
+  stage: test
+  artifacts:
+    reports:
+      sast: gl-sast-report.json
+  rules:
+    - when: never
+  variables:
+    SEARCH_MAX_DEPTH: 4
+  script:
+    - echo "$CI_JOB_NAME is used for configuration only, and its script should not be executed"
+    - exit 1
+
+.sast-analyzer:
+  extends: sast
+  allow_failure: true
+  # `rules` must be overridden explicitly by each child job
+  # see https://gitlab.com/gitlab-org/gitlab/-/issues/218444
+  script:
+    - /analyzer run
 job_build_client:
   stage: build
   before_script:
@@ -111,26 +131,7 @@ job_deploy_server:
     - docker pull reda91/server:latest
     - docker run -d --name server_container -p 8080:80 reda91/server:latest
 
-sast:
-  stage: test
-  artifacts:
-    reports:
-      sast: gl-sast-report.json
-  rules:
-    - when: never
-  variables:
-    SEARCH_MAX_DEPTH: 4
-  script:
-    - echo "$CI_JOB_NAME is used for configuration only, and its script should not be executed"
-    - exit 1
 
-.sast-analyzer:
-  extends: sast
-  allow_failure: true
-  # `rules` must be overridden explicitly by each child job
-  # see https://gitlab.com/gitlab-org/gitlab/-/issues/218444
-  script:
-    - /analyzer run
 
 
 k8sdeployment:
