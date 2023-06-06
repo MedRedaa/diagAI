@@ -4,7 +4,6 @@ stages:
   - build
   - package
   - deploy
-  - scan
   - k8sdeploy
 
 include:
