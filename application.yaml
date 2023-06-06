@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://gitlab.com/Reedaa/diagai.git
     targetRevision: HEAD
-    path: appmanifests
+    path: kubernetes-manifests
     
   destination:
     server: https://kubernetes.default.svc
