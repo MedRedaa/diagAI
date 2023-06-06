@@ -6,7 +6,7 @@ stages:
   - k8sdeploy
 
 include:
-  - template: jobs/SAST.gitlab-ci.yml
+  - template: job/SAST.gitlab-ci.yml
 #variables:
  # KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
 
