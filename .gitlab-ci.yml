@@ -115,11 +115,8 @@ job_deploy_server:
 
 spotbugs-sast:
   stage: build
-  variables:
-    COMPILE: "false"
+
   artifacts:
-    paths:
-      - .m2/
     reports:
       sast: gl-sast-report.json
 
