@@ -5,6 +5,7 @@ stages:
   - build
   - package
   - deploy
+  - scan
   - k8sdeploy
 
 #variables:
@@ -110,6 +111,16 @@ job_deploy_server:
   script:
     - docker pull reda91/server:latest
     - docker run -d --name server_container -p 8080:80 reda91/server:latest
+
+spotbugs-sast:
+  stage: scan
+  variables:
+    COMPILE: "false"
+  artifacts:
+    paths:
+      - .m2/
+    reports:
+      sast: gl-sast-report.json
 
 k8sdeployment:
   stage: k8sdeploy
