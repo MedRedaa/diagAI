@@ -6,8 +6,7 @@ stages:
   - deploy
   - k8sdeploy
 
-include:
-  - template: Jobs/SAST.gitlab-ci.yml
+
 #variables:
  # KUBECONFIG: "$CI_PROJECT_DIR/.kube/config"
 
@@ -112,10 +111,7 @@ job_deploy_server:
     - docker pull reda91/server:latest
     - docker run -d --name server_container -p 8080:80 reda91/server:latest
 
-spotbugs-sast:
-  artifacts:
-    reports:
-      sast: gl-sast-report.json
+
 
 k8sdeployment:
   stage: k8sdeploy
